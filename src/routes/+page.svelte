@@ -8,7 +8,7 @@
 	import PocketBase from 'pocketbase';
 	import { onMount } from 'svelte';
 
-	const pb = new PocketBase('https://chat-medienscouts.krio.synthetix.me');
+	const pb = new PocketBase('https://chat-ms.app.louist2469.de');
 
 	let user: any = '' || 'anonymous' || null;
 
