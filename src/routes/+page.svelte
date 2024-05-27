@@ -8,6 +8,8 @@
 	let user: string | null = null;
 	let messages: any[] = [];
 	let send = '';
+	let inputDisabled = false; // State variable für die Deaktivierung des Inputs
+	let countdownTime = 0; // Variable für die Countdown-Zeit
 
 	// Element-Referenz für den Nachrichten-Container
 	let messagesContainer: HTMLDivElement | null = null;
@@ -17,6 +19,19 @@
 		if (messagesContainer) {
 			messagesContainer.scrollTop = messagesContainer.scrollHeight;
 		}
+	};
+
+	// Countdown-Funktion für die Zeit im Input-Feld
+	const startCountdown = () => {
+		countdownTime = 4; // Setze die Countdown-Zeit auf 4 Sekunden
+
+		const countdownInterval = setInterval(() => {
+			countdownTime--;
+			if (countdownTime === 0) {
+				clearInterval(countdownInterval); // Stoppe den Countdown, wenn die Zeit abgelaufen ist
+				inputDisabled = false; // Aktiviere das Input-Feld wieder
+			}
+		}, 1000); // Aktualisiere den Countdown alle 1 Sekunde
 	};
 
 	onMount(async () => {
@@ -60,11 +75,15 @@
 	async function sendMessage(user: string, message: string) {
 		try {
 			pb.autoCancellation(false);
+			inputDisabled = true; // Deaktiviere das Input-Feld
+			startCountdown(); // Starte den Countdown
+
 			const record = await pb.collection('message').create({
 				user,
 				message
 			});
-			messages = [...messages, record];
+
+			messages = [...messages, record]; // Füge die Nachricht zur Liste hinzu
 		} catch (error) {
 			console.error(error);
 		}
@@ -119,8 +138,11 @@
 				placeholder="Gib eine Nachricht ein."
 				type="text"
 				bind:value={send}
+				disabled={inputDisabled}
 			/>
+			<!-- Anzeige der Countdown-Zeit -->
 			<button type="submit" class="material-icons text-3xl text-white">send</button>
+			<span class="text-white">{countdownTime}s</span>
 		</form>
 	</div>
 </div>
