@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
-	const pb = new PocketBase('https://chat-ms.app.louist2469.de');
+	const pb = new PocketBase('https://chat-ms.app.louist.de');
 
 	let user: string | null = null;
 	let messages: any[] = [];
