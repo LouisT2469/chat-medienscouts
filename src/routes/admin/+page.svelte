@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import PocketBase from 'pocketbase';
 
-	const pb = new PocketBase('https://chat-ms.app.louist2469.de');
+	const pb = new PocketBase('https://chat-ms.app.louist.de');
 
 	async function deleteChat() {
 		const records = await pb.collection('message').getFullList({
