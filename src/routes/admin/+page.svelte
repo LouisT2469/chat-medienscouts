@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import PocketBase from 'pocketbase';
 	import { onMount } from 'svelte';
-
-	const pb = new PocketBase('https://chat-ms.app.louist.de');
+	import { pb } from '$lib/pb';
 
 	let redirects: any[] = [];
 	let newRedirect = { name: '', url: '' };

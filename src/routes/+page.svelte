@@ -1,9 +1,10 @@
 <script lang="ts">
 	import PocketBase from 'pocketbase';
+	import { pb } from '$lib/pb';
+
 	import { onMount, afterUpdate } from 'svelte';
 	import { onDestroy } from 'svelte';
 
-	const pb = new PocketBase('https://chat-ms.app.louist.de');
 
 	let user: string | null = null;
 	let messages: any[] = [];

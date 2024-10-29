@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import PocketBase from 'pocketbase';
+	import { pb } from '$lib/pb';
 	import { page } from '$app/stores';
 
 	let isLoading = true;
@@ -9,14 +10,12 @@
 	let error: string | null = null;
 
 	onMount(async () => {
-		const pb = new PocketBase('https://chat-ms.app.louist.de');
 		const name = $page.params.name;
 
 		try {
 			const record = await pb.collection('Redirects').getFirstListItem(`name="${name}"`);
-			redirectUrl = record.url;
-			if (redirectUrl) {
-				window.location.href = redirectUrl; // Using window.location for a full page redirect
+			if (record.url) {
+				goto(record.url);
 			} else {
 				error = 'Ungültige Weiterleitung';
 			}
