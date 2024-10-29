@@ -15,7 +15,8 @@
 		try {
 			const record = await pb.collection('Redirects').getFirstListItem(`name="${name}"`);
 			if (record.url) {
-				goto(record.url);
+				redirectUrl = record.url;
+				window.location = record.url;
 			} else {
 				error = 'Ungültige Weiterleitung';
 			}
