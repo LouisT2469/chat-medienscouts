@@ -1,10 +1,7 @@
 <script lang="ts">
-	import PocketBase from 'pocketbase';
-	import { pb } from '$lib/pb';
+	import { pb } from '$lib/pb'; //pocketbase Einbindung
 
 	import { onMount, afterUpdate } from 'svelte';
-	import { onDestroy } from 'svelte';
-
 
 	let user: string | null = null;
 	let messages: any[] = [];

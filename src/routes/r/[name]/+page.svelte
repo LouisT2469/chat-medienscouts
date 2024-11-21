@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import PocketBase from 'pocketbase';
 	import { pb } from '$lib/pb';
 	import { page } from '$app/stores';
 
@@ -25,7 +24,7 @@
 		} finally {
 			isLoading = false;
 		}
-	});
+	}); // Wenn Seite startet, nehme den SLUG ([name]) aus der URL und leide, wenn der SLUG in der Datenbank vorhanden, auf die neue Seite weiter
 </script>
 
 <div class="flex h-screen items-center justify-center">
