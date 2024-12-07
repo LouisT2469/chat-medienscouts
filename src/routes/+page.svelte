@@ -72,6 +72,24 @@
 
 	async function sendMessage(user: string, message: string) {
 		try {
+			// Neuer Regex zur Erkennung von Emojis
+			const emojiRegex = /(?:\p{Emoji_Presentation}|\p{Emoji})/gu;
+
+			let consecutiveEmojiCount = 0;
+
+			// Überprüfe die Zeichen der Nachricht einzeln
+			for (const char of message) {
+				if (char.match(emojiRegex)) {
+					consecutiveEmojiCount++;
+					if (consecutiveEmojiCount > 3) {
+						alert('Nicht mehr als drei Emojis hintereinander erlaubt!');
+						return; // Bricht den Sendevorgang ab
+					}
+				} else {
+					consecutiveEmojiCount = 0; // Zähler zurücksetzen, wenn kein Emoji
+				}
+			}
+
 			pb.autoCancellation(false);
 			inputDisabled = true; // Deaktiviere das Input-Feld
 			startCountdown(); // Starte den Countdown
